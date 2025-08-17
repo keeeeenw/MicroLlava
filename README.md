@@ -3,9 +3,15 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-red.svg)](https://pytorch.org/)
-[![Hugging Face](https://img.shields.io/badge/🤗-Hugging%20Face-yellow)](https://huggingface.co/keeeeenw/MicroLlava-siglip-so400m-patch14-384-base-finetune)
+[![Hugging Face](https://img.shields.io/badge/🤗-Hugging%20Face-yellow)](https://huggingface.co/keeeeenw/MicroLlava)
 
 A compact vision language model that you can pretrain and finetune on a single consumer GPU such as NVIDIA RTX 4090 with 24GB VRAM.
+
+## 📰 News and Updates
+
+* 08/17/2025: the hugging face repo is renamed to https://huggingface.co/keeeeenw/MicroLlava.
+* 08/17/2025: improved **VQAv2** average dev-test score from **44.01%** to **56.91%** by upgrading the vision tower from SigLip to SigLip2.
+* 08/09/2025: initial version of MicroLlava released
 
 ## 🚀 Quick Start
 
@@ -15,7 +21,7 @@ A compact vision language model that you can pretrain and finetune on a single c
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
 # Load model from Hugging Face
-hf_path = 'keeeeenw/MicroLlava-siglip-so400m-patch14-384-base-finetune'
+hf_path = 'keeeeenw/MicroLlava'
 model = AutoModelForCausalLM.from_pretrained(hf_path, trust_remote_code=True)
 # model.cuda()  # Enable CUDA if needed - model runs fairly quickly on CPU
 
@@ -48,7 +54,7 @@ print(f'Generation time: {generation_time}')
 |-----------|---------|
 | **Framework** | Transformers + PyTorch |
 | **Language Model** | [MicroLlama](https://huggingface.co/keeeeenw/MicroLlama) (~300M parameters) |
-| **Vision Encoder** | [SigLIP-SO400M](https://huggingface.co/google/siglip-so400m-patch14-384) |
+| **Vision Encoder** | [SigLIP2-SO400M](https://huggingface.co/google/siglip2-so400m-patch14-384) |
 | **Training Hardware** | Single NVIDIA RTX 4090 |
 | **Checkpoint Format** | SafeTensors |
 | **License** | Apache 2.0 |
@@ -63,7 +69,18 @@ print(f'Generation time: {generation_time}')
 
 ## 🏆 Performance
 
-### VQAv2 Evaluation Results
+### VQAv2 Evaluation Results (MicroLlama 300M + Siglip2-so400m-patch4-384)
+
+| Question Type | Accuracy |
+|---------------|----------|
+| Yes/No | 72.32% |
+| Number | 43.89% |
+| Other | 46.65% |
+| **Overall** | **56.91%** |
+
+*Evaluated on VQAv2 test-dev split*
+
+### (Deprecated) VQAv2 Evaluation Results (MicroLlama 300M + Siglip-so400m-patch4-384)
 
 | Question Type | Accuracy |
 |---------------|----------|
@@ -93,6 +110,7 @@ This model is based on [TinyLLaVA Factory](https://github.com/TinyLLaVA/TinyLLaV
 - `gradient_accumulation_steps`: 2 → 8
 - `learning_rate`: 1e-3 → 2.5e-4  
 - `warmup_ratio`: 0.03 → 0.06
+- `bfloat16`: True after the Siglip2 upgrade (improved stability)
 
 **Finetuning:**
 - Precision: `bfloat16` (improved stability)
@@ -127,7 +145,7 @@ cd TinyLLaVA_Factory
 
 - [MicroLlama](https://huggingface.co/keeeeenw/MicroLlama) - The base language model
 - [TinyLLaVA Factory](https://github.com/TinyLLaVA/TinyLLaVA_Factory) - Training framework
-- [SigLIP](https://huggingface.co/google/siglip-so400m-patch14-384) - Vision encoder
+- [SigLIP2](https://huggingface.co/google/siglip2-so400m-patch14-384) - Vision encoder
 
 ## 📝 Citation
 
@@ -136,7 +154,7 @@ cd TinyLLaVA_Factory
   title        = {MicroLLaVA: a TinyLLaVA based VLM with MicroLlama 300M for single GPU training},
   author       = {Zixiao Ken Wang},
   year         = {2025},
-  url          = {https://huggingface.co/keeeeenw/MicroLlava-siglip-so400m-patch14-384-base-finetune}
+  url          = {https://huggingface.co/keeeeenw/MicroLlava}
 }
 ```
 
@@ -158,7 +176,7 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 
 Special thanks to:
 - [TinyLLaVA Factory](https://github.com/TinyLLaVA/TinyLLaVA_Factory) team for the training framework
-- SigLIP authors for the efficient vision encoder
+- SigLIP2 authors for the efficient vision encoder
 - LAION community for the pretraining datasets
 - Hugging Face for model hosting and tools
 
