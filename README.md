@@ -9,6 +9,11 @@ A compact vision language model that you can pretrain and finetune on a single c
 
 ## 📰 News and Updates
 
+* **08/23/2025:** Created a new model based on **Qwen3-0.6B-base** with **SigLIP2-so400m** 👉 [keeeeenw/MicroLlava-Qwen3-0.6B-base-siglip2-so400m](https://huggingface.co/keeeeenw/MicroLlava-Qwen3-0.6B-base-siglip2-so400m). This model has ~1B parameters and achieves a **78.5 VQAv2** score, on par with the original **LLaVA 1.5 (7B)**.
+* **08/23/2025:** Added **Qwen3 support** to [TinyLLaVA_Factory](https://github.com/keeeeenw/TinyLLaVA_Factory/tree/cu12_qwen3), including:
+  * A new [chat template for Qwen3](https://github.com/keeeeenw/TinyLLaVA_Factory/blob/cu12_qwen3/tinyllava/data/template/qwen3_base_template.py) integration  
+  * Training and evaluation scripts with hyperparameters for a single **Nvidia 4090**  
+  * Various compatibility fixes such as **transformers** upgrade required for the new **Qwen3-0.6B-base** model
 * 08/17/2025: the hugging face repo is renamed to https://huggingface.co/keeeeenw/MicroLlava.
 * 08/17/2025: improved **VQAv2** average dev-test score from **44.01%** to **56.91%** by upgrading the vision tower from SigLip to SigLip2.
 * 08/09/2025: initial version of MicroLlava released
